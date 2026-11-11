@@ -18,6 +18,47 @@ from sklearn.metrics import (
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+# =========================================================
+# DATASET: BREAST CANCER WISCONSIN DIAGNOSTIC
+# =========================================================
+
+from sklearn.datasets import load_breast_cancer
+
+data = load_breast_cancer()
+
+X = data.data
+y = data.target
+
+feature_names = data.feature_names
+target_names = data.target_names
+
+df = pd.DataFrame(X, columns=feature_names)
+df["target"] = y
+
+st.subheader("Dataset: Breast Cancer Wisconsin Diagnostic Dataset")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric("Instances", X.shape[0])
+
+with col2:
+    st.metric("Features", X.shape[1])
+
+with col3:
+    st.metric("Classes", len(np.unique(y)))
+
+st.write("### Target Classes")
+st.write({
+    0: target_names[0],
+    1: target_names[1]
+})
+
+st.write("### Dataset Preview")
+st.dataframe(df.head())
+
+st.write("### Dataset Shape")
+st.write(df.shape)
 
 # ============================================================
 # PAGE CONFIGURATION
